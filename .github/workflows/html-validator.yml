@@ -15,7 +15,11 @@ jobs:
             exit 1
           fi
 
-      - name: HTML/Jinja Syntax Check
-        run: |
-          pip install djlint
-          djlint ./app/templates/students --check --profile=jinja
+      - name: HTML Syntax Check
+        uses: anishathalye/proof-html@v1
+        with:
+          directory: ./app/templates/students
+          check_html: true
+          check_img_http: true
+          url_ignore_re: '^/$'         
+          check_favicon: false  
