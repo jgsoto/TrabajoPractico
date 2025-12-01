@@ -1,0 +1,23 @@
+name: CI Quality Gate
+on: [pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check Branch Naming
+        run: |
+          BRANCH_NAME=${{ github.head_ref }}
+          if [[ ! "$BRANCH_NAME" =~ ^feature/[a-z0-9_-]+$ ]]; then
+            echo "ERROR: Nombre de rama incorrecto. Debe ser: feature/nombre-apellido"
+            exit 1
+          fi
+
+      - name: HTML Syntax Check
+        uses: anishathalye/proof-html@v1
+        with:
+          directory: ./app/templates/students
+          check_html: true
+          check_img_http: true

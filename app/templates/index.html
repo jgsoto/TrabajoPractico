@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard de Estudiantes{% endblock %}
+
+{% block content %}
+    <div class="header-section">
+        <h1>Matriz de Perfiles Profesionales</h1>
+        <p>Selecciona un estudiante para ver su análisis FODA</p>
+    </div>
+
+    {% if students %}
+        <div class="student-grid">
+            {% for student in students %}
+                <a href="{{ url_for('show_foda', filename=student.filename) }}" class="student-card">
+                    <div class="avatar">👨‍💻</div>
+                    <h3>{{ student.name }}</h3>
+                    <div class="btn-view">Ver Perfil →</div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h2>Esperando Integración...</h2>
+            <p>Aún no hay Pull Requests aceptados.</p>
+            <p class="instruction">Estudiantes: clonen el repo y suban su archivo a <code>app/templates/students/</code></p>
+        </div>
+    {% endif %}
+{% endblock %}

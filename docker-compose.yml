@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app-root/app  # Hot-reload: si editas en local, se actualiza en docker
+    environment:
+      - FLASK_DEBUG=1
